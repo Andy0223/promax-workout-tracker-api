@@ -1,52 +1,89 @@
-# Promax Workout Tracker API (MVP)
+# 🏋️‍♂️ Promax Workout Tracker API
 
-A **Spring Boot–based workout tracking API** for managing and recording fitness data from  devices.  
+A **Spring Boot 3.5** RESTful API for managing and recording personal workout data.  
+Built to simulate Garmin’s backend data flow, featuring **JWT authentication**, **Redis caching**, **asynchronous event processing**, and **Dockerized deployment**.
 
+---
 
-## 🎯 项目愿景
+## 🎯 Project Vision
 
-Build a backend system that allows users to upload and query their personal workout records, demonstrating skills in **API design**, **database architecture**, and **system performance optimization**.
+Promax Workout Tracker API is designed to demonstrate backend development skills in:
 
-## ✨ MVP Features
+- REST API design & implementation  
+- Database schema design (PostgreSQL + JPA/Hibernate)  
+- Redis caching and performance optimization  
+- Asynchronous event-driven architecture  
+- Containerization with Docker and Docker Compose  
 
-- 👤 **User Registration / Login** – Simplified user authentication system  
-- 🏃‍♂️ **Workout Upload** – RESTful API for submitting workout data  
-- 📊 **Workout Query** – Supports pagination and Redis caching optimization  
-- 📚 **Swagger Documentation** – Complete API documentation and interactive UI  
-- 🧪 **Unit Testing** – JUnit 5 tests covering core business logic  
-- 🐳 **Dockerized Deployment** – Runs with PostgreSQL + Redis + Spring Boot application stack  
+---
+
+## ✨ Core Features
+
+### 👤 User Management
+- User registration & login with encrypted credentials  
+- JWT-based authentication & authorization  
+- Validation and exception handling for input data  
+
+### 🏃 Workout Tracking
+- Upload and manage personal workout records  
+- Retrieve workouts by user, workout type, or date range  
+- Support for pagination and filtering  
+- Automatic calculation of user-specific workout summaries (distance, duration, calories, pace)  
+
+### ⚙️ Performance & Architecture
+- Redis caching for faster queries  
+- Async processing using `@Async` and event listeners for background computations  
+- Custom cache key strategy for multi-level user statistics  
+
+### 🧪 Quality & Documentation
+- Comprehensive Swagger / OpenAPI 3 documentation  
+- Unit tests using **JUnit 5** and **Mockito**  
+- Consistent code style and meaningful API responses  
+
+### 🐳 Deployment
+- Fully containerized with Docker  
+- Managed with Docker Compose (PostgreSQL + Redis + API)  
+- Supports both local development and production builds  
+
+---
 
 ## 🛠️ Tech Stack
 
-- **Framework:** Spring Boot 3.2.0  
-- **Java Version:** 17  
-- **Build Tool:** Maven  
-- **Database:** PostgreSQL (Production) + H2 (Testing)  
-- **Cache:** Redis  
-- **API Documentation:** Swagger / OpenAPI 3  
-- **Containerization:** Docker + Docker Compose  
-- **Testing:** JUnit 5 + Mockito  
+| Category | Technology |
+|-----------|-------------|
+| **Language** | Java 17 |
+| **Framework** | Spring Boot 3.2.0 |
+| **Build Tool** | Maven |
+| **Database** | PostgreSQL (prod), H2 (test) |
+| **Cache** | Redis |
+| **Security** | Spring Security + JWT |
+| **Testing** | JUnit 5, Mockito |
+| **Containerization** | Docker + Docker Compose |
+| **Documentation** | Swagger / OpenAPI 3 |
+
+---
 
 ## 🚀 Getting Started
 
-### Environment Requirements
+### ✅ Prerequisites
 
-- Java 17 or higher  
-- Maven 3.6 or higher  
-- Docker and Docker Compose *(recommended)*
+- Java **17+**
+- Maven **3.6+**
+- Docker & Docker Compose
 
-### Option 1: Docker Compose Deployment (Recommended)
+---
 
-1. Clone the project locally:
-   ```bash
-   cd "/Users/andy/Desktop/Promax Workout Tracker API"
+### Option 1 — Run with Docker (Recommended)
 
-2. Start all services:
 ```bash
-docker-compose up -d
-```
+# Clone the repository
+git clone https://github.com/your-username/promax-workout-tracker-api.git
+cd promax-workout-tracker-api
 
-3. Access the application
+# Start all services
+docker-compose up -d
+
+Access the application
 - Base API URL: http://localhost:8080/api
 - Swagger UI: http://localhost:8080/api/swagger-ui.html
 - Health Check: http://localhost:8080/api/health
@@ -89,9 +126,9 @@ mvn test
 
 - `POST /api/workouts/upload` - Upload workout record
 - `GET /api/workouts/{userId}` - Retrieve user workouts (with cache)
-- `GET /api/workouts/{userId}/paginated` - Retrieve paginated workout data
+- `GET /api/workouts/{userId}/paginated?page=0&size=10` - Paginated workout list
 - `GET /api/workouts/{userId}/recent` - Get most recent workouts
-- `GET /api/workouts/{userId}/stats` - Retrieve workout statistics
+- `/api/workouts/{userId}/summary/byType` - Get workout summary grouped by type
 - `GET /api/workouts/detail/{workoutId}` - Retrieve specific workout detail
 - `PUT /api/workouts/{workoutId}` - Update workout record
 - `DELETE /api/workouts/{workoutId}` - Delete workout record
@@ -110,7 +147,7 @@ curl -X POST http://localhost:8080/api/users/register \
   }'
 ```
 
-### User Login
+### User Login (JWT)
 ```bash
 curl -X POST http://localhost:8080/api/users/login \
   -H "Content-Type: application/json" \
@@ -124,6 +161,7 @@ curl -X POST http://localhost:8080/api/users/login \
 ```bash
 curl -X POST "http://localhost:8080/api/workouts/upload?userId=1" \
   -H "Content-Type: application/json" \
+  -H "Authorization: Bearer <your-token>" \
   -d '{
     "workoutType": "Running",
     "durationMinutes": 30,
@@ -141,6 +179,12 @@ curl http://localhost:8080/api/workouts/1
 ### Get User recent Workouts
 ```bash
 curl http://localhost:8080/api/workouts/1/recent
+```
+
+### Get User's Workouts summary by type
+```bash
+curl -H "Authorization: Bearer <your-token>" \
+  http://localhost:8080/api/workouts/1/summary/by-type
 ```
 
 ## 📁 项目结构
