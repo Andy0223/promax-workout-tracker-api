@@ -196,21 +196,31 @@ src/
 │   │   └── com//workout/
 │   │       ├── WorkoutTrackerApplication.java
 │   │       ├── config/
-│   │       │   ├── SwaggerConfig.java
+│   │       │   ├── AsyncConfig.java
 │   │       │   └── RedisConfig.java
+│   │       │   └── SecurityConfig.java
+│   │       │   └── SwaggerConfig.java
 │   │       ├── controller/
 │   │       │   ├── HealthController.java
 │   │       │   ├── UserController.java
 │   │       │   └── WorkoutController.java
 │   │       ├── dto/
 │   │       │   ├── UserRegistrationDto.java
+│   │       │   └── WorkoutTypeSummaryDto.java
 │   │       │   └── WorkoutUploadDto.java
 │   │       ├── entity/
 │   │       │   ├── User.java
 │   │       │   └── Workout.java
+│   │       ├── event/
+│   │       │   ├── WorkoutEvent.java
+│   │       │   └── WorkoutEventListener.java
 │   │       ├── repository/
 │   │       │   ├── UserRepository.java
 │   │       │   └── WorkoutRepository.java
+│   │       ├── security/
+│   │       │   ├── JwtAuthFilter.java
+│   │       │   └── JetService.java
+│   │       │   └── JwtUtil.java
 │   │       └── service/
 │   │           ├── UserService.java
 │   │           └── WorkoutService.java
@@ -237,6 +247,17 @@ src/
 - **Logging**: DEBUG level for development
 - **Hot Reload**: Enabled via Spring Boot DevTools
 
+## Commands Overview
+
+| Purpose          | Command                         |
+| ---------------- | ------------------------------- |
+| Build JAR        | `mvn clean package -DskipTests` |
+| Run App          | `mvn spring-boot:run`           |
+| Start via Docker | `docker-compose up -d`          |
+| Stop Containers  | `docker-compose down`           |
+| Run Tests        | `mvn test`                      |
+
+
 ## License
 
-MIT License
+This project is licensed under the MIT License — feel free to use, modify, and share.
