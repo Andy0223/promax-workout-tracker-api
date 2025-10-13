@@ -1,0 +1,19 @@
+# Maven build
+target/
+*.jar
+*.war
+*.iml
+
+# IDE and OS files
+.idea/
+.vscode/
+.DS_Store
+*.log
+
+# Environment files
+.env
+*.local.properties
+
+# Docker volumes
+postgres_data/
+redis_data/
