@@ -1,7 +1,6 @@
 # 🏋️‍♂️ Promax Workout Tracker API
 
-A **Spring Boot 3.5** RESTful API for managing and recording personal workout data.  
-Built to simulate Garmin’s backend data flow, featuring **JWT authentication**, **Redis caching**, **asynchronous event processing**, and **Dockerized deployment**.
+A **Spring Boot 3.5** RESTful API for managing and recording personal workout, datafeaturing **JWT authentication**, **Redis caching**, **asynchronous event processing**, and **Dockerized deployment**.
 
 ---
 

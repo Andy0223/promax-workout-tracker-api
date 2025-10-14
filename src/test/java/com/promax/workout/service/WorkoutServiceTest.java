@@ -237,7 +237,7 @@ class WorkoutServiceTest {
                 IllegalArgumentException.class,
                 () -> workoutService.deleteWorkout(999L));
 
-        assertEquals("运动记录不存在: 999", exception.getMessage());
+        assertEquals("workout record doesn't exist: 999", exception.getMessage());
         verify(workoutRepository).existsById(999L);
         verify(workoutRepository, never()).deleteById(anyLong());
     }
