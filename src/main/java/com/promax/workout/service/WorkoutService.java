@@ -4,6 +4,7 @@ import com.promax.workout.dto.WorkoutTypeSummaryDto;
 import com.promax.workout.dto.WorkoutUploadDto;
 import com.promax.workout.entity.User;
 import com.promax.workout.entity.Workout;
+import com.promax.workout.enums.WorkoutType;
 import com.promax.workout.event.WorkoutEvent;
 import com.promax.workout.repository.WorkoutRepository;
 import com.promax.workout.repository.UserRepository;
@@ -198,7 +199,7 @@ public class WorkoutService {
         List<Object[]> rows = workoutRepository.getWorkoutSummaryByType(userId);
         List<WorkoutTypeSummaryDto> list = new ArrayList<>();
         for (Object[] r : rows) {
-            String type = (String) r[0];
+            WorkoutType type = (WorkoutType) r[0];
             long cnt = ((Number) r[1]).longValue();
             double dist = ((Number) r[2]).doubleValue();
             double dur = ((Number) r[3]).doubleValue();

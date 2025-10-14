@@ -5,6 +5,7 @@ import com.promax.workout.entity.User;
 import com.promax.workout.entity.Workout;
 import com.promax.workout.repository.UserRepository;
 import com.promax.workout.repository.WorkoutRepository;
+import com.promax.workout.enums.WorkoutType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -58,7 +59,7 @@ class WorkoutServiceTest {
 
         // Prepare upload DTO
         uploadDto = new WorkoutUploadDto();
-        uploadDto.setWorkoutType("running");
+        uploadDto.setWorkoutType(WorkoutType.RUNNING);
         uploadDto.setDurationMinutes(30);
         uploadDto.setDistanceKm(new BigDecimal("5.0"));
         uploadDto.setCaloriesBurned(300);
@@ -67,7 +68,7 @@ class WorkoutServiceTest {
         // Prepare test workout record
         testWorkout = new Workout();
         testWorkout.setId(1L);
-        testWorkout.setWorkoutType("running");
+        testWorkout.setWorkoutType(WorkoutType.RUNNING);
         testWorkout.setDurationMinutes(30);
         testWorkout.setDistanceKm(new BigDecimal("5.0"));
         testWorkout.setCaloriesBurned(300);
@@ -86,7 +87,7 @@ class WorkoutServiceTest {
 
         // Verify result
         assertNotNull(result);
-        assertEquals("running", result.getWorkoutType());
+        assertEquals(WorkoutType.RUNNING, result.getWorkoutType());
         assertEquals(30, result.getDurationMinutes());
         assertEquals(new BigDecimal("5.0"), result.getDistanceKm());
         assertEquals(300, result.getCaloriesBurned());
@@ -124,7 +125,7 @@ class WorkoutServiceTest {
         // Verify result
         assertNotNull(result);
         assertEquals(1, result.size());
-        assertEquals("running", result.get(0).getWorkoutType());
+        assertEquals(WorkoutType.RUNNING, result.get(0).getWorkoutType());
 
         // Verify method calls
         verify(workoutRepository).findByUserIdOrderByCreatedAtDesc(1L);
@@ -143,7 +144,7 @@ class WorkoutServiceTest {
         // Verify result
         assertNotNull(result);
         assertEquals(1, result.size());
-        assertEquals("running", result.get(0).getWorkoutType());
+        assertEquals(WorkoutType.RUNNING, result.get(0).getWorkoutType());
 
         // Verify method calls
         verify(workoutRepository).findRecentWorkoutsByUserId(1L, pageable);
@@ -159,7 +160,7 @@ class WorkoutServiceTest {
 
         // Verify result
         assertTrue(result.isPresent());
-        assertEquals("running", result.get().getWorkoutType());
+        assertEquals(WorkoutType.RUNNING, result.get().getWorkoutType());
 
         // Verify method calls
         verify(workoutRepository).findById(1L);
@@ -191,7 +192,7 @@ class WorkoutServiceTest {
 
         // Verify result
         assertNotNull(result);
-        assertEquals("running", result.getWorkoutType());
+        assertEquals(WorkoutType.RUNNING, result.getWorkoutType());
 
         // Verify method calls
         verify(workoutRepository).findById(1L);

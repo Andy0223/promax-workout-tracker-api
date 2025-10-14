@@ -115,23 +115,23 @@ mvn test
 
 ### User
 
-- `POST /api/users/register` - User Registration
-- `POST /api/users/login` - User login
-- `GET /api/users/{userId}` - Retrieve User Info
-- `GET /api/users/check-username` - Check username availability
-- `GET /api/users/check-email` - Check email avalability
-- `GET /api/users/count` - Get user account amounts
+- `POST /api/v1/users/register` - User Registration
+- `POST /api/v1/users/login` - User login
+- `GET /api/v1/users/{userId}` - Retrieve User Info
+- `GET /api/v1/users/check-username` - Check username availability
+- `GET /api/v1/users/check-email` - Check email avalability
+- `GET /api/v1/users/count` - Get user account amounts
 
 ### Workout
 
-- `POST /api/workouts/upload` - Upload workout record
-- `GET /api/workouts/{userId}` - Retrieve user workouts (with cache)
-- `GET /api/workouts/{userId}/paginated?page=0&size=10` - Paginated workout list
-- `GET /api/workouts/{userId}/recent` - Get most recent workouts
-- `/api/workouts/{userId}/summary/byType` - Get workout summary grouped by type
-- `GET /api/workouts/detail/{workoutId}` - Retrieve specific workout detail
-- `PUT /api/workouts/{workoutId}` - Update workout record
-- `DELETE /api/workouts/{workoutId}` - Delete workout record
+- `POST /api/v1/workouts/upload` - Upload workout record
+- `GET /api/v1/workouts/{userId}` - Retrieve user workouts (with cache)
+- `GET /api/v1/workouts/{userId}/paginated?page=0&size=10` - Paginated workout list
+- `GET /api/v1/workouts/{userId}/recent` - Get most recent workouts
+- `GET /api/v1/workouts/{userId}/summary/byType` - Get workout summary grouped by type
+- `GET /api/v1/workouts/detail/{workoutId}` - Retrieve specific workout detail
+- `PUT /api/v1/workouts/{workoutId}` - Update workout record
+- `DELETE /api/v1/workouts/{workoutId}` - Delete workout record
 
 ## 📋 Example Requests
 

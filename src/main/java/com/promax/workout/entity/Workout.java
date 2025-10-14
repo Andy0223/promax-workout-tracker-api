@@ -3,12 +3,12 @@ package com.promax.workout.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.promax.workout.enums.WorkoutType;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -29,9 +29,10 @@ public class Workout implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "Workout type cannot be empty")
+    @NotNull(message = "Workout type cannot be empty")
     @Column(name = "workout_type", nullable = false)
-    private String workoutType;
+    @Enumerated(EnumType.STRING)
+    private WorkoutType workoutType;
 
     @NotNull(message = "Duration cannot be empty")
     @Min(value = 1, message = "Duration must be greater than 0 minutes")
@@ -70,7 +71,7 @@ public class Workout implements Serializable {
     }
 
     // Constructor with parameters
-    public Workout(String workoutType, Integer durationMinutes, BigDecimal distanceKm,
+    public Workout(WorkoutType workoutType, Integer durationMinutes, BigDecimal distanceKm,
             Integer caloriesBurned, String notes, User user) {
         this.workoutType = workoutType;
         this.durationMinutes = durationMinutes;
@@ -89,11 +90,11 @@ public class Workout implements Serializable {
         this.id = id;
     }
 
-    public String getWorkoutType() {
+    public WorkoutType getWorkoutType() {
         return workoutType;
     }
 
-    public void setWorkoutType(String workoutType) {
+    public void setWorkoutType(WorkoutType workoutType) {
         this.workoutType = workoutType;
     }
 

@@ -1,7 +1,9 @@
 package com.promax.workout.dto;
 
+import com.promax.workout.enums.WorkoutType;
+
 public class WorkoutTypeSummaryDto {
-    private String workoutType;
+    private WorkoutType workoutType;
     private long totalCount;
     private double totalDistanceKm;
     private double totalDurationMinutes;
@@ -11,7 +13,8 @@ public class WorkoutTypeSummaryDto {
     public WorkoutTypeSummaryDto() {
     }
 
-    public WorkoutTypeSummaryDto(String workoutType, long totalCount,
+    public WorkoutTypeSummaryDto(
+            WorkoutType workoutType, long totalCount,
             double totalDistanceKm, double totalDurationMinutes, double totalCaloriesBurned) {
         this.workoutType = workoutType;
         this.totalCount = totalCount;
@@ -22,7 +25,7 @@ public class WorkoutTypeSummaryDto {
     }
 
     // Getter and Setter
-    public String getWorkoutType() {
+    public WorkoutType getWorkoutType() {
         return workoutType;
     }
 

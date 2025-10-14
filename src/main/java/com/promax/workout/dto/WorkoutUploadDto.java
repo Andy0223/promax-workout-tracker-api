@@ -2,11 +2,12 @@ package com.promax.workout.dto;
 
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 import java.math.BigDecimal;
+
+import com.promax.workout.enums.WorkoutType;
 
 /**
  * Workout Upload DTO
@@ -17,8 +18,8 @@ import java.math.BigDecimal;
  */
 public class WorkoutUploadDto {
 
-    @NotBlank(message = "Workout type cannot be empty")
-    private String workoutType;
+    @NotNull(message = "Workout type is required")
+    private WorkoutType workoutType;
 
     @NotNull(message = "Duration cannot be empty")
     @Min(value = 1, message = "Duration must be greater than 0 minutes")
@@ -40,7 +41,7 @@ public class WorkoutUploadDto {
     }
 
     // Constructor with parameters
-    public WorkoutUploadDto(String workoutType, Integer durationMinutes, BigDecimal distanceKm,
+    public WorkoutUploadDto(WorkoutType workoutType, Integer durationMinutes, BigDecimal distanceKm,
             Integer caloriesBurned, String notes) {
         this.workoutType = workoutType;
         this.durationMinutes = durationMinutes;
@@ -50,11 +51,11 @@ public class WorkoutUploadDto {
     }
 
     // Getters and Setters
-    public String getWorkoutType() {
+    public WorkoutType getWorkoutType() {
         return workoutType;
     }
 
-    public void setWorkoutType(String workoutType) {
+    public void setWorkoutType(WorkoutType workoutType) {
         this.workoutType = workoutType;
     }
 
