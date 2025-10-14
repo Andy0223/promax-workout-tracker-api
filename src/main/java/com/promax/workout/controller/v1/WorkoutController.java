@@ -1,4 +1,4 @@
-package com.promax.workout.controller;
+package com.promax.workout.controller.v1;
 
 import com.promax.workout.dto.WorkoutTypeSummaryDto;
 import com.promax.workout.dto.WorkoutUploadDto;
@@ -28,7 +28,7 @@ import java.util.Optional;
  * @version 1.0.0
  */
 @RestController
-@RequestMapping("/workouts")
+@RequestMapping("v1/workouts")
 @Tag(name = "Workout Management", description = "Workout record upload and query related APIs")
 public class WorkoutController {
 

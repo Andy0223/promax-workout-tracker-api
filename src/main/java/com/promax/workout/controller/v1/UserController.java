@@ -1,4 +1,4 @@
-package com.promax.workout.controller;
+package com.promax.workout.controller.v1;
 
 import com.promax.workout.dto.UserRegistrationDto;
 import com.promax.workout.entity.User;
@@ -26,7 +26,7 @@ import java.util.Optional;
  * @version 1.0.0
  */
 @RestController
-@RequestMapping("/users")
+@RequestMapping("v1/users")
 @Tag(name = "User Management", description = "User registration and login related APIs")
 public class UserController {
 

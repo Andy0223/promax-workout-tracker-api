@@ -1,4 +1,4 @@
-package com.promax.workout.controller;
+package com.promax.workout.controller.v1;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,7 +17,7 @@ import java.util.Map;
  * @version 1.0.0
  */
 @RestController
-@RequestMapping("/health")
+@RequestMapping("v1/health")
 public class HealthController {
 
     /**

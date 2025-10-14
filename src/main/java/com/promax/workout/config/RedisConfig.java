@@ -23,7 +23,7 @@ import java.time.Duration;
 public class RedisConfig {
 
     /**
-     * 建立可支援 LocalDateTime 的 GenericJackson2JsonRedisSerializer
+     * Build a GenericJackson2JsonRedisSerializer support LocalDateTime
      */
     private GenericJackson2JsonRedisSerializer buildJsonSerializer() {
         ObjectMapper mapper = new ObjectMapper();
@@ -33,9 +33,6 @@ public class RedisConfig {
         return new GenericJackson2JsonRedisSerializer(mapper);
     }
 
-    /**
-     * RedisTemplate 設定：用於手動操作 Redis（例如 RedisTemplate.opsForValue()）
-     */
     @Bean
     public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory connectionFactory) {
         RedisTemplate<String, Object> template = new RedisTemplate<>();
@@ -54,7 +51,7 @@ public class RedisConfig {
     }
 
     /**
-     * RedisCacheManager 設定：供 @Cacheable / @CachePut / @CacheEvict 使用
+     * RedisCacheManager setting：for @Cacheable / @CachePut / @CacheEvict use
      */
     @Bean
     public RedisCacheManager cacheManager(RedisConnectionFactory connectionFactory) {
