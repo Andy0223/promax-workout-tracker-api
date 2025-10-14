@@ -137,7 +137,7 @@ mvn test
 
 ### User Registration
 ```bash
-curl -X POST http://localhost:8080/api/users/register \
+curl -X POST http://localhost:8080/api/v1/users/register \
   -H "Content-Type: application/json" \
   -d '{
     "username": "testuser",
@@ -149,7 +149,7 @@ curl -X POST http://localhost:8080/api/users/register \
 
 ### User Login (JWT)
 ```bash
-curl -X POST http://localhost:8080/api/users/login \
+curl -X POST http://localhost:8080/api/v1/users/login \
   -H "Content-Type: application/json" \
   -d '{
     "username": "testuser",
@@ -159,7 +159,7 @@ curl -X POST http://localhost:8080/api/users/login \
 
 ### Upload Workout
 ```bash
-curl -X POST "http://localhost:8080/api/workouts/upload?userId=1" \
+curl -X POST "http://localhost:8080/api/v1/workouts/upload?userId=1" \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer <your-token>" \
   -d '{
@@ -173,12 +173,12 @@ curl -X POST "http://localhost:8080/api/workouts/upload?userId=1" \
 
 ### Get User Workouts
 ```bash
-curl http://localhost:8080/api/workouts/1
+curl http://localhost:8080/api/v1/workouts/1
 ```
 
 ### Get User recent Workouts
 ```bash
-curl http://localhost:8080/api/workouts/1/recent
+curl http://localhost:8080/api/v1/workouts/1/recent
 ```
 
 ### Get User's Workouts summary by type
