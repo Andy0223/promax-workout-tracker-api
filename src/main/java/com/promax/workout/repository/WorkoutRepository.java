@@ -1,6 +1,8 @@
 package com.promax.workout.repository;
 
 import com.promax.workout.entity.Workout;
+import com.promax.workout.enums.WorkoutType;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -115,4 +117,18 @@ public interface WorkoutRepository extends JpaRepository<Workout, Long> {
             "COALESCE(SUM(w.durationMinutes), 0), COALESCE(SUM(w.caloriesBurned), 0) " +
             "FROM Workout w WHERE w.user.id = :userId GROUP BY w.workoutType")
     List<Object[]> getWorkoutSummaryByType(@Param("userId") Long userId);
+
+    @Query("""
+            select count(w), coalesce(sum(w.distanceKm),0), coalesce(sum(w.durationMinutes),0), coalesce(sum(w.caloriesBurned),0)
+            from Workout w
+            where w.user.id = :userId
+              and w.workoutType = :type
+              and w.createdAt >= :start
+              and w.createdAt <  :end
+            """)
+    Object aggregateForGoalPeriod(@Param("userId") Long userId,
+            @Param("type") WorkoutType type,
+            @Param("start") LocalDateTime start,
+            @Param("end") LocalDateTime end);
+
 }

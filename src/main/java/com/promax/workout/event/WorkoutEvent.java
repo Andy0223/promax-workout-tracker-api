@@ -13,4 +13,8 @@ public class WorkoutEvent {
     public Workout getWorkout() {
         return workout;
     }
+
+    public Long getUserId() {
+        return workout.getUser().getId();
+    }
 }

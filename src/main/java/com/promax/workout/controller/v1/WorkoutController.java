@@ -3,6 +3,7 @@ package com.promax.workout.controller.v1;
 import com.promax.workout.dto.WorkoutTypeSummaryDto;
 import com.promax.workout.dto.WorkoutUploadDto;
 import com.promax.workout.entity.Workout;
+import com.promax.workout.event.WorkoutEvent;
 import com.promax.workout.service.WorkoutService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -14,6 +15,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.context.ApplicationEventPublisher;
 
 import java.util.HashMap;
 import java.util.List;
@@ -33,9 +35,11 @@ import java.util.Optional;
 public class WorkoutController {
 
     private final WorkoutService workoutService;
+    private final ApplicationEventPublisher eventPublisher;
 
-    public WorkoutController(WorkoutService workoutService) {
+    public WorkoutController(WorkoutService workoutService, ApplicationEventPublisher eventPublisher) {
         this.workoutService = workoutService;
+        this.eventPublisher = eventPublisher;
     }
 
     /**
@@ -58,6 +62,7 @@ public class WorkoutController {
 
         try {
             Workout workout = workoutService.uploadWorkout(userId, uploadDto);
+            eventPublisher.publishEvent(new WorkoutEvent(workout));
 
             Map<String, Object> response = new HashMap<>();
             response.put("success", true);

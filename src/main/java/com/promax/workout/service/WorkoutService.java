@@ -72,7 +72,6 @@ public class WorkoutService {
         Workout saved = workoutRepository.save(workout);
 
         eventPublisher.publishEvent(new WorkoutEvent(saved));
-        System.out.println("[Event Published] WorkoutEvent triggered for userId=" + userId);
 
         return saved;
     }

@@ -27,7 +27,7 @@ public class WorkoutUploadDto {
 
     @NotNull(message = "Distance cannot be empty")
     @DecimalMin(value = "0.0", message = "Distance cannot be negative")
-    private BigDecimal distanceKm;
+    private double distanceKm;
 
     @NotNull(message = "Calories burned cannot be empty")
     @Min(value = 0, message = "Calories burned cannot be negative")
@@ -41,7 +41,7 @@ public class WorkoutUploadDto {
     }
 
     // Constructor with parameters
-    public WorkoutUploadDto(WorkoutType workoutType, Integer durationMinutes, BigDecimal distanceKm,
+    public WorkoutUploadDto(WorkoutType workoutType, Integer durationMinutes, double distanceKm,
             Integer caloriesBurned, String notes) {
         this.workoutType = workoutType;
         this.durationMinutes = durationMinutes;
@@ -67,11 +67,11 @@ public class WorkoutUploadDto {
         this.durationMinutes = durationMinutes;
     }
 
-    public BigDecimal getDistanceKm() {
+    public double getDistanceKm() {
         return distanceKm;
     }
 
-    public void setDistanceKm(BigDecimal distanceKm) {
+    public void setDistanceKm(double distanceKm) {
         this.distanceKm = distanceKm;
     }
 

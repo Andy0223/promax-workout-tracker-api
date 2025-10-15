@@ -61,7 +61,7 @@ class WorkoutServiceTest {
         uploadDto = new WorkoutUploadDto();
         uploadDto.setWorkoutType(WorkoutType.RUNNING);
         uploadDto.setDurationMinutes(30);
-        uploadDto.setDistanceKm(new BigDecimal("5.0"));
+        uploadDto.setDistanceKm(5.0);
         uploadDto.setCaloriesBurned(300);
         uploadDto.setNotes("test exercise record");
 
@@ -70,7 +70,7 @@ class WorkoutServiceTest {
         testWorkout.setId(1L);
         testWorkout.setWorkoutType(WorkoutType.RUNNING);
         testWorkout.setDurationMinutes(30);
-        testWorkout.setDistanceKm(new BigDecimal("5.0"));
+        testWorkout.setDistanceKm(5.0);
         testWorkout.setCaloriesBurned(300);
         testWorkout.setNotes("test exercise record");
         testWorkout.setUser(testUser);

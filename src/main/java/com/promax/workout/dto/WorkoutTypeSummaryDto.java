@@ -8,7 +8,7 @@ public class WorkoutTypeSummaryDto {
     private double totalDistanceKm;
     private double totalDurationMinutes;
     private double totalCaloriesBurned;
-    private double averagePace; // 分鐘 / 公里
+    private double averagePace;
 
     public WorkoutTypeSummaryDto() {
     }

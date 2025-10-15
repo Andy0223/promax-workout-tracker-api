@@ -10,7 +10,6 @@ import org.hibernate.annotations.UpdateTimestamp;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.promax.workout.enums.WorkoutType;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.io.Serializable;
 
@@ -41,8 +40,8 @@ public class Workout implements Serializable {
 
     @NotNull(message = "Distance cannot be empty")
     @DecimalMin(value = "0.0", message = "Distance cannot be negative")
-    @Column(name = "distance_km", precision = 10, scale = 2)
-    private BigDecimal distanceKm;
+    @Column(name = "distance_km")
+    private double distanceKm;
 
     @NotNull(message = "Calories burned cannot be empty")
     @Min(value = 0, message = "Calories burned cannot be negative")
@@ -71,7 +70,8 @@ public class Workout implements Serializable {
     }
 
     // Constructor with parameters
-    public Workout(WorkoutType workoutType, Integer durationMinutes, BigDecimal distanceKm,
+    public Workout(WorkoutType workoutType, Integer durationMinutes,
+            double distanceKm,
             Integer caloriesBurned, String notes, User user) {
         this.workoutType = workoutType;
         this.durationMinutes = durationMinutes;
@@ -106,11 +106,11 @@ public class Workout implements Serializable {
         this.durationMinutes = durationMinutes;
     }
 
-    public BigDecimal getDistanceKm() {
+    public double getDistanceKm() {
         return distanceKm;
     }
 
-    public void setDistanceKm(BigDecimal distanceKm) {
+    public void setDistanceKm(double distanceKm) {
         this.distanceKm = distanceKm;
     }
 
