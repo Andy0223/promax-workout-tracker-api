@@ -117,8 +117,7 @@ mvn test
 - `POST /api/v1/users/register` - User Registration
 - `POST /api/v1/users/login` - User login
 - `GET /api/v1/users/{userId}` - Retrieve User Info
-- `GET /api/v1/users/check-username` - Check username availability
-- `GET /api/v1/users/check-email` - Check email avalability
+- `GET /api/v1/users/checkEmail` - Check email avalability
 - `GET /api/v1/users/count` - Get user account amounts
 
 ### Workout
@@ -149,7 +148,7 @@ curl -X POST http://localhost:8080/api/v1/users/register \
 ### User Login (JWT)
 ```bash
 curl -X POST http://localhost:8080/api/v1/users/login \
-  -H "Content-Type: application/json" \
+  -H "Content-Type: application/json" \   
   -d '{
     "username": "testuser",
     "password": "password123"
@@ -162,7 +161,7 @@ curl -X POST "http://localhost:8080/api/v1/workouts/upload?userId=1" \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer <your-token>" \
   -d '{
-    "workoutType": "Running",
+    "workoutType": "RUNNING",
     "durationMinutes": 30,
     "distanceKm": 5.0,
     "caloriesBurned": 300,
@@ -172,21 +171,21 @@ curl -X POST "http://localhost:8080/api/v1/workouts/upload?userId=1" \
 
 ### Get User Workouts
 ```bash
-curl http://localhost:8080/api/v1/workouts/1
+curl -H "Authorization: Bearer <your-token>" http://localhost:8080/api/v1/workouts/1
 ```
 
 ### Get User recent Workouts
 ```bash
-curl http://localhost:8080/api/v1/workouts/1/recent
+curl -H "Authorization: Bearer <your-token>" http://localhost:8080/api/v1/workouts/1/recent
 ```
 
 ### Get User's Workouts summary by type
 ```bash
 curl -H "Authorization: Bearer <your-token>" \
-  http://localhost:8080/api/workouts/1/summary/by-type
+  http://localhost:8080/api/workouts/1/summary/byType
 ```
 
-## 📁 项目结构
+## 📁 File Structure
 
 ```
 src/
