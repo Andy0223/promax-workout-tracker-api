@@ -1,6 +1,7 @@
 package com.promax.workout.service;
 
-import com.promax.workout.dto.UserRegistrationDto;
+import com.promax.workout.dto.User.UserRegistrationRequest;
+import com.promax.workout.dto.User.UserResponse;
 import com.promax.workout.entity.User;
 import com.promax.workout.repository.UserRepository;
 import org.springframework.stereotype.Service;
@@ -28,26 +29,26 @@ public class UserService {
     /**
      * User registration
      * 
-     * @param registrationDto Registration information
+     * @param userRegistrationRequest Registration information
      * @return Successfully registered user information
      * @throws IllegalArgumentException if username or email already exists
      */
-    public User registerUser(UserRegistrationDto registrationDto) {
+    public User registerUser(UserRegistrationRequest userRegistrationRequest) {
         // Check if username already exists
-        if (userRepository.existsByUsername(registrationDto.getUsername())) {
-            throw new IllegalArgumentException("Username already exists: " + registrationDto.getUsername());
+        if (userRepository.existsByUsername(userRegistrationRequest.getUsername())) {
+            throw new IllegalArgumentException("Username already exists: " + userRegistrationRequest.getUsername());
         }
 
         // Check if email already exists
-        if (userRepository.existsByEmail(registrationDto.getEmail())) {
-            throw new IllegalArgumentException("Email already exists: " + registrationDto.getEmail());
+        if (userRepository.existsByEmail(userRegistrationRequest.getEmail())) {
+            throw new IllegalArgumentException("Email already exists: " + userRegistrationRequest.getEmail());
         }
 
         // Create new user
         User user = new User(
-                registrationDto.getUsername(),
-                registrationDto.getEmail(),
-                registrationDto.getPassword() // Note: In real projects, password should be encrypted
+                userRegistrationRequest.getUsername(),
+                userRegistrationRequest.getEmail(),
+                userRegistrationRequest.getPassword() // Note: In real projects, password should be encrypted
         );
 
         return userRepository.save(user);
@@ -62,11 +63,11 @@ public class UserService {
      * @throws IllegalArgumentException if username or password is incorrect
      */
     @Transactional(readOnly = true)
-    public User loginUser(String username, String password) {
-        Optional<User> userOptional = userRepository.findByUsernameAndPassword(username, password);
+    public User loginUser(String email, String password) {
+        Optional<User> userOptional = userRepository.findByEmailAndPassword(email, password);
 
         if (userOptional.isEmpty()) {
-            throw new IllegalArgumentException("Incorrect username or password");
+            throw new IllegalArgumentException("Incorrect email or password");
         }
 
         return userOptional.get();

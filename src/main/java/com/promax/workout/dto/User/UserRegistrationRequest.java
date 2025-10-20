@@ -1,4 +1,4 @@
-package com.promax.workout.dto;
+package com.promax.workout.dto.User;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -11,7 +11,7 @@ import jakarta.validation.constraints.Size;
  * @author Promax Workout Tracker Team
  * @version 1.0.0
  */
-public class UserRegistrationDto {
+public class UserRegistrationRequest {
 
     @NotBlank(message = "Username cannot be empty")
     @Size(min = 3, max = 50, message = "Username length must be between 3-50 characters")
@@ -30,11 +30,11 @@ public class UserRegistrationDto {
     private String password;
 
     // Default constructor
-    public UserRegistrationDto() {
+    public UserRegistrationRequest() {
     }
 
     // Constructor with parameters
-    public UserRegistrationDto(String username, String fullName, String email, String password) {
+    public UserRegistrationRequest(String username, String fullName, String email, String password) {
         this.username = username;
         this.fullName = fullName;
         this.email = email;

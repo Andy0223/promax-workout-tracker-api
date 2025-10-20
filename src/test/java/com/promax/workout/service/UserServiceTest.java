@@ -1,6 +1,6 @@
 package com.promax.workout.service;
 
-import com.promax.workout.dto.UserRegistrationDto;
+import com.promax.workout.dto.User.UserRegistrationRequest;
 import com.promax.workout.entity.User;
 import com.promax.workout.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -33,13 +33,13 @@ class UserServiceTest {
     @InjectMocks
     private UserService userService;
 
-    private UserRegistrationDto registrationDto;
+    private UserRegistrationRequest registrationDto;
     private User testUser;
 
     @BeforeEach
     void setUp() {
         // Prepare test data
-        registrationDto = new UserRegistrationDto();
+        registrationDto = new UserRegistrationRequest();
         registrationDto.setUsername("testuser");
         registrationDto.setFullName("Test User");
         registrationDto.setEmail("test@example.com");
@@ -108,11 +108,11 @@ class UserServiceTest {
     @Test
     void testLoginUser_Success() {
         // Mock login success
-        when(userRepository.findByUsernameAndPassword("testuser", "password123"))
+        when(userRepository.findByEmailAndPassword("test@example.com", "password123"))
                 .thenReturn(Optional.of(testUser));
 
         // Execute test
-        User result = userService.loginUser("testuser", "password123");
+        User result = userService.loginUser("test@example.com", "password123");
 
         // Verify result
         assertNotNull(result);
@@ -120,22 +120,22 @@ class UserServiceTest {
         assertEquals("test@example.com", result.getEmail());
 
         // Verify method calls
-        verify(userRepository).findByUsernameAndPassword("testuser", "password123");
+        verify(userRepository).findByEmailAndPassword("test@example.com", "password123");
     }
 
     @Test
     void testLoginUser_InvalidCredentials() {
         // Mock login failed
-        when(userRepository.findByUsernameAndPassword(anyString(), anyString()))
+        when(userRepository.findByEmailAndPassword(anyString(), anyString()))
                 .thenReturn(Optional.empty());
 
         // Execute test and verify exception
         IllegalArgumentException exception = assertThrows(
                 IllegalArgumentException.class,
-                () -> userService.loginUser("testuser", "wrongpassword"));
+                () -> userService.loginUser("test@example.com", "wrongpassword"));
 
         assertEquals("Incorrect username or password", exception.getMessage());
-        verify(userRepository).findByUsernameAndPassword("testuser", "wrongpassword");
+        verify(userRepository).findByEmailAndPassword("test@example.com", "wrongpassword");
     }
 
     @Test

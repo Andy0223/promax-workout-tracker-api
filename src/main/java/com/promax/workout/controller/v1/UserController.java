@@ -1,7 +1,9 @@
 package com.promax.workout.controller.v1;
 
 import com.promax.workout.dto.StandardResponseDto;
-import com.promax.workout.dto.UserRegistrationDto;
+import com.promax.workout.dto.User.UserLoginRequest;
+import com.promax.workout.dto.User.UserRegistrationRequest;
+import com.promax.workout.dto.User.UserResponse;
 import com.promax.workout.entity.User;
 import com.promax.workout.service.UserService;
 import com.promax.workout.security.JwtUtil;
@@ -42,7 +44,7 @@ public class UserController {
     /**
      * User registration
      * 
-     * @param registrationDto Registration information
+     * @param userRegistrationRequest Registration information
      * @return Registration result
      */
     @PostMapping("/register")
@@ -52,25 +54,24 @@ public class UserController {
             @ApiResponse(responseCode = "400", description = "Invalid request parameters"),
             @ApiResponse(responseCode = "409", description = "Username or email already exists")
     })
-    public ResponseEntity<StandardResponseDto<Map<String, Object>>> registerUser(
-            @Valid @RequestBody UserRegistrationDto registrationDto) {
+    public ResponseEntity<StandardResponseDto<UserResponse>> registerUser(
+            @Valid @RequestBody UserRegistrationRequest userRegistrationRequest) {
 
-        User user = userService.registerUser(registrationDto);
+        User user = userService.registerUser(userRegistrationRequest);
 
-        Map<String, Object> userData = new HashMap<>();
-        userData.put("userId", user.getId());
-        userData.put("username", user.getUsername());
-        userData.put("email", user.getEmail());
-        userData.put("createdAt", user.getCreatedAt());
+        UserResponse userResponse = new UserResponse();
+        userResponse.setUsername(user.getUsername());
+        userResponse.setEmail(user.getEmail());
+        userResponse.setCreatedAt(user.getCreatedAt());
 
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(StandardResponseDto.success("User registration successful", userData));
+                .body(StandardResponseDto.success("User registration successful", userResponse));
     }
 
     /**
      * User login
      * 
-     * @param loginRequest Login request
+     * @param userLoginRequest Login request
      * @return Login result
      */
     @PostMapping("/login")
@@ -80,16 +81,16 @@ public class UserController {
             @ApiResponse(responseCode = "401", description = "Incorrect username or password")
     })
     public ResponseEntity<StandardResponseDto<Map<String, Object>>> loginUser(
-            @RequestBody Map<String, String> loginRequest) {
+            @RequestBody UserLoginRequest userLoginRequest) {
 
-        String username = loginRequest.get("username");
-        String password = loginRequest.get("password");
+        String email = userLoginRequest.getEmail();
+        String password = userLoginRequest.getPassword();
 
-        if (username == null || password == null) {
-            throw new IllegalArgumentException("Username and password cannot be empty");
+        if (email == null || password == null) {
+            throw new IllegalArgumentException("Email and password cannot be empty");
         }
 
-        User user = userService.loginUser(username, password);
+        User user = userService.loginUser(email, password);
         String token = jwtUtil.generateToken(user.getUsername());
 
         Map<String, Object> loginData = new HashMap<>();
@@ -113,7 +114,7 @@ public class UserController {
             @ApiResponse(responseCode = "200", description = "Retrieved successfully"),
             @ApiResponse(responseCode = "404", description = "User not found")
     })
-    public ResponseEntity<StandardResponseDto<Map<String, Object>>> getUserInfo(
+    public ResponseEntity<StandardResponseDto<UserResponse>> getUserInfo(
             @Parameter(description = "User ID") @PathVariable Long userId) {
 
         Optional<User> userOptional = userService.findUserById(userId);
@@ -126,14 +127,13 @@ public class UserController {
 
         User user = userOptional.get(); // Unwrap the Optional safely after the check
 
-        Map<String, Object> userData = new HashMap<>();
-        userData.put("userId", user.getId());
-        userData.put("username", user.getUsername());
-        userData.put("email", user.getEmail());
-        userData.put("createdAt", user.getCreatedAt());
-        userData.put("updatedAt", user.getUpdatedAt());
+        UserResponse userResponse = new UserResponse();
+        userResponse.setUsername(user.getUsername());
+        userResponse.setEmail(user.getEmail());
+        userResponse.setCreatedAt(user.getCreatedAt());
+        userResponse.setUpdatedAt(user.getUpdatedAt());
 
-        return ResponseEntity.ok(StandardResponseDto.success(userData));
+        return ResponseEntity.ok(StandardResponseDto.success(userResponse));
     }
 
     /**
@@ -144,17 +144,16 @@ public class UserController {
      */
     @GetMapping("/checkEmail")
     @Operation(summary = "Check Email Availability")
-    public ResponseEntity<StandardResponseDto<Map<String, Object>>> checkEmail(
+    public ResponseEntity<StandardResponseDto<UserResponse>> checkEmail(
             @Parameter(description = "Email address") @RequestParam String email) {
 
         boolean exists = userService.isEmailExists(email);
 
-        Map<String, Object> checkResult = new HashMap<>();
-        checkResult.put("email", email);
-        checkResult.put("available", !exists);
+        UserResponse userResponse = new UserResponse();
+        userResponse.setEmail(email);
 
         String message = exists ? "Email already exists" : "Email available";
-        return ResponseEntity.ok(StandardResponseDto.success(message, checkResult));
+        return ResponseEntity.ok(StandardResponseDto.success(message, userResponse));
     }
 
     /**
