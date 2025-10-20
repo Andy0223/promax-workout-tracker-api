@@ -1,11 +1,12 @@
 package com.promax.workout.service;
 
 import com.promax.workout.dto.User.UserRegistrationRequest;
-import com.promax.workout.dto.User.UserResponse;
 import com.promax.workout.entity.User;
 import com.promax.workout.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Optional;
 
@@ -21,9 +22,11 @@ import java.util.Optional;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     /**
@@ -48,7 +51,7 @@ public class UserService {
         User user = new User(
                 userRegistrationRequest.getUsername(),
                 userRegistrationRequest.getEmail(),
-                userRegistrationRequest.getPassword() // Note: In real projects, password should be encrypted
+                passwordEncoder.encode(userRegistrationRequest.getPassword()) // Note: In real projects, password should
         );
 
         return userRepository.save(user);
@@ -64,13 +67,20 @@ public class UserService {
      */
     @Transactional(readOnly = true)
     public User loginUser(String email, String password) {
-        Optional<User> userOptional = userRepository.findByEmailAndPassword(email, password);
+        // Check if the user exists
+        Optional<User> userOptional = userRepository.findByEmail(email);
 
         if (userOptional.isEmpty()) {
             throw new IllegalArgumentException("Incorrect email or password");
         }
 
-        return userOptional.get();
+        User user = userOptional.get();
+
+        if (!passwordEncoder.matches(password, user.getPassword())) {
+            throw new IllegalArgumentException("Incorrect email or password");
+        }
+
+        return user;
     }
 
     /**

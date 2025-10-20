@@ -41,7 +41,6 @@ class UserServiceTest {
         // Prepare test data
         registrationDto = new UserRegistrationRequest();
         registrationDto.setUsername("testuser");
-        registrationDto.setFullName("Test User");
         registrationDto.setEmail("test@example.com");
         registrationDto.setPassword("password123");
 

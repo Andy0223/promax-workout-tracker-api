@@ -17,10 +17,6 @@ public class UserRegistrationRequest {
     @Size(min = 3, max = 50, message = "Username length must be between 3-50 characters")
     private String username;
 
-    @NotBlank(message = "Full name cannot be empty")
-    @Size(max = 100, message = "Full name length cannot exceed 100 characters")
-    private String fullName;
-
     @Email(message = "Invalid email format")
     @NotBlank(message = "Email cannot be empty")
     private String email;
@@ -34,9 +30,8 @@ public class UserRegistrationRequest {
     }
 
     // Constructor with parameters
-    public UserRegistrationRequest(String username, String fullName, String email, String password) {
+    public UserRegistrationRequest(String username, String email, String password) {
         this.username = username;
-        this.fullName = fullName;
         this.email = email;
         this.password = password;
     }
@@ -48,14 +43,6 @@ public class UserRegistrationRequest {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public String getFullName() {
-        return fullName;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
     }
 
     public String getEmail() {
@@ -76,9 +63,8 @@ public class UserRegistrationRequest {
 
     @Override
     public String toString() {
-        return "UserRegistrationDto{" +
+        return "UserRegistrationRequest{" +
                 "username='" + username + '\'' +
-                ", fullName='" + fullName + '\'' +
                 ", email='" + email + '\'' +
                 '}';
     }
