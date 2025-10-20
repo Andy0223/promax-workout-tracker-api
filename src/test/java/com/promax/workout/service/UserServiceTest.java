@@ -48,7 +48,6 @@ class UserServiceTest {
         testUser = new User();
         testUser.setId(1L);
         testUser.setUsername("testuser");
-        testUser.setFullName("Test User");
         testUser.setEmail("test@example.com");
         testUser.setPassword("password123");
     }
@@ -66,7 +65,6 @@ class UserServiceTest {
         // Verify result
         assertNotNull(result);
         assertEquals("testuser", result.getUsername());
-        assertEquals("Test User", result.getFullName());
         assertEquals("test@example.com", result.getEmail());
 
         // Verify method calls

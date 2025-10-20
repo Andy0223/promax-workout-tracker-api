@@ -31,11 +31,6 @@ public class User {
     @Column(name = "username", unique = true, nullable = false)
     private String username;
 
-    @NotBlank(message = "Full name cannot be empty")
-    @Size(max = 100, message = "Full name length cannot exceed 100 characters")
-    @Column(name = "full_name", nullable = false)
-    private String fullName;
-
     @Email(message = "Invalid email format")
     @NotBlank(message = "Email cannot be empty")
     @Column(name = "email", unique = true, nullable = false)
@@ -64,9 +59,8 @@ public class User {
     }
 
     // Constructor with parameters
-    public User(String username, String fullName, String email, String password) {
+    public User(String username, String email, String password) {
         this.username = username;
-        this.fullName = fullName;
         this.email = email;
         this.password = password;
     }
@@ -86,14 +80,6 @@ public class User {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public String getFullName() {
-        return fullName;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
     }
 
     public String getEmail() {
@@ -141,7 +127,6 @@ public class User {
         return "User{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
-                ", fullName='" + fullName + '\'' +
                 ", email='" + email + '\'' +
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +

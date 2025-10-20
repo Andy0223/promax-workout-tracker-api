@@ -4,7 +4,6 @@ import com.promax.workout.dto.StandardResponseDto;
 import com.promax.workout.dto.WorkoutTypeSummaryDto;
 import com.promax.workout.dto.WorkoutUploadDto;
 import com.promax.workout.entity.Workout;
-import com.promax.workout.event.WorkoutEvent;
 import com.promax.workout.service.WorkoutService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -21,7 +20,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("v1/workouts")

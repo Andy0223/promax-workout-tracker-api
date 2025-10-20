@@ -46,7 +46,6 @@ public class UserService {
         // Create new user
         User user = new User(
                 registrationDto.getUsername(),
-                registrationDto.getFullName(),
                 registrationDto.getEmail(),
                 registrationDto.getPassword() // Note: In real projects, password should be encrypted
         );
@@ -152,7 +151,6 @@ public class UserService {
 
         // Update fields (preserve ID and creation time)
         existingUser.setUsername(updatedUser.getUsername());
-        existingUser.setFullName(updatedUser.getFullName());
         existingUser.setEmail(updatedUser.getEmail());
         existingUser.setPassword(updatedUser.getPassword());
 

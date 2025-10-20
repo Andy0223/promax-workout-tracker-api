@@ -54,7 +54,6 @@ class WorkoutServiceTest {
         testUser = new User();
         testUser.setId(1L);
         testUser.setUsername("testuser");
-        testUser.setFullName("Test User");
         testUser.setEmail("test@example.com");
 
         // Prepare upload DTO

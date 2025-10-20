@@ -61,7 +61,6 @@ public class UserController {
         userData.put("userId", user.getId());
         userData.put("username", user.getUsername());
         userData.put("email", user.getEmail());
-        userData.put("fullName", user.getFullName());
         userData.put("createdAt", user.getCreatedAt());
 
         return ResponseEntity.status(HttpStatus.CREATED)
@@ -130,7 +129,6 @@ public class UserController {
         Map<String, Object> userData = new HashMap<>();
         userData.put("userId", user.getId());
         userData.put("username", user.getUsername());
-        userData.put("fullName", user.getFullName());
         userData.put("email", user.getEmail());
         userData.put("createdAt", user.getCreatedAt());
         userData.put("updatedAt", user.getUpdatedAt());
