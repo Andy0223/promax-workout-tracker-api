@@ -51,14 +51,14 @@ public class RedisConfig {
     }
 
     /**
-     * RedisCacheManager setting：for @Cacheable / @CachePut / @CacheEvict use
+     * RedisCacheManager setting: for @Cacheable / @CachePut / @CacheEvict use
      */
     @Bean
     public RedisCacheManager cacheManager(RedisConnectionFactory connectionFactory) {
         GenericJackson2JsonRedisSerializer jsonSerializer = buildJsonSerializer();
 
         RedisCacheConfiguration config = RedisCacheConfiguration.defaultCacheConfig()
-                .entryTtl(Duration.ofHours(6)) // 預設 TTL
+                .entryTtl(Duration.ofHours(6)) // Default TTL
                 .disableCachingNullValues()
                 .serializeKeysWith(
                         RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))
