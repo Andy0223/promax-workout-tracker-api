@@ -39,33 +39,33 @@ services:
       retries: 5
     command: redis-server --appendonly yes
   # Spring Boot application
-  # app:
-  #   build:
-  #     context: .
-  #     dockerfile: Dockerfile
-  #   container_name: promax-workout-api
-  #   environment:
-  #     SPRING_PROFILES_ACTIVE: docker
-  #     SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/workout_tracker_db
-  #     SPRING_DATASOURCE_USERNAME: workout_user
-  #     SPRING_DATASOURCE_PASSWORD: workout_password
-  #     SPRING_DATA_REDIS_HOST: redis
-  #     SPRING_DATA_REDIS_PORT: 6379
-  #   ports:
-  #     - "8080:8080"
-  #   depends_on:
-  #     postgres:
-  #       condition: service_healthy
-  #     redis:
-  #       condition: service_healthy
-  #   networks:
-  #     - workout-network
-  #   restart: unless-stopped
-  #   healthcheck:
-  #     test: [ "CMD", "curl", "-f", "http://localhost:8080/api/health" ]
-  #     interval: 30s
-  #     timeout: 10s
-  #     retries: 3
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: promax-workout-api
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/workout_tracker_db
+      SPRING_DATASOURCE_USERNAME: workout_user
+      SPRING_DATASOURCE_PASSWORD: workout_password
+      SPRING_DATA_REDIS_HOST: redis
+      SPRING_DATA_REDIS_PORT: 6379
+    ports:
+      - "8080:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - workout-network
+    restart: unless-stopped
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8080/api/health" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
 volumes:
   postgres_data:
